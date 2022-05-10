@@ -3,21 +3,36 @@ import axios from 'axios';
 
 
 function App() {
-    const [data,setData] = useState({})
+    const [weatherData,setWeatherData] = useState({})
     const [location, setLocation] = useState('')
- 
+  
   const url =`https://api.openweathermap.org/data/2.5/weather?q=${location}&units=imperial&appid=1c640ec399621bc7bb33594e610b51e7`
+
+  //const url2 = `https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=minutely,hourly,alerts&appid=1c640ec399621bc7bb33594e610b51e7`
+
 
   const searchLocation = (event) => {
     if (event.key == 'Enter'){
-      axios.get(url).then((response) => {
-        setData(response.data)
+      axios.get(url)
+      .then((response) => {
+        setWeatherData(response.data)
         console.log(response.data)
+       return response.data
       })
+      .then( (weather) => {axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${weather.coord.lat}&lon=${weather.coord.lon}&exclude=minutely,hourly&units=imperial&appid=1c640ec399621bc7bb33594e610b51e7`)
+      .then((response)=>{
+        setWeatherData(response.data)
+        return response.data
+      })
+      
       setLocation('')
     }
-    
-  }
+   )
+  }}
+
+
+
+
 
   return (
     <div className="app">
@@ -29,7 +44,10 @@ function App() {
         placeholder='Enter Location'
         type="text"/>
       </div>
-      <div className="container">
+      <div>
+        <p></p>
+      </div>
+      {/* <div className="container">
         <div className="top">
           <div className="location">
             <p>{data.name}</p>
@@ -59,7 +77,7 @@ function App() {
         
 
 
-      </div>
+      </div> */}
     </div>
   );
 }
