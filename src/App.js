@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+import SevenDayWeather from './SevenDayWeather';
 
 
 function App() {
@@ -45,12 +46,14 @@ function App() {
       </div>
 
       
-      
+{/*       
       <div className="currentWeather">
         {weatherData.current ? <p>{weatherData.current.temp}°F</p>:null}
         {weatherData.daily ? <p>{weatherData.daily[0].temp.day}°F</p>:null}
-      </div>
-     
+      </div> */}
+      
+      {weatherData.daily ? <SevenDayWeather weather={weatherData.daily} />:null}
+
     </div>
   );
 }
