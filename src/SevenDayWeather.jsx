@@ -9,30 +9,41 @@ import Grid from '@mui/material/Grid';
 import { Typography } from '@mui/material';
 
 const SevenDayWeather = ({weather}) => {
+
+
+   
+    let dt = new Date(weather[0].dt * 1000); // time stamp
+
+    console.log("component weather", weather)
+    console.log("dt", dt)
+
 return(
-    <div className="App">
+    <div className="weather">
       
-      <Container maxWidth="sm">
-          <Grid container spacing={1}>
+      <Container maxWidth="md">
+          <Grid container spacing={1} alignItems='center' justifyContent='center'>
         {weather.map((daily) => (
           <>
         
-        <Card sx={{minWidth: 275,}}>
-      <CardContent s={{backgroundColor:"rgba(255,255,255,0.2"}}>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          Temperature
+        <Card style={{backgroundColor:'rgba(255,255,255,0.5)'}}sx={{minWidth: 275,m:2}}>
+      <CardContent style={{}}>
+        <Typography sx={{ fontSize: 20 }} color="black">
+          Temp for {dt.toDateString()}
         </Typography>
-        <Typography variant="h7" component="div">
+        <Typography sx={{mb:1}}variant="h8" color='black' component="div">
          High {daily.temp.max}°F - Low {daily.temp.min}°F
         </Typography>
-        <Typography sx={{ mt: 1.5 }} color="text.secondary">
-        Wind Speed {daily.wind_speed.toFixed()} MPH
+        <Typography sx={{ fontSize: 20}} color="black">
+        Wind Speed
         </Typography>
-        <Typography variant="body2">
-          
-          Humidity - {daily.humidity}%
-          <br />
-          {'"a benevolent smile"'}
+        <Typography variant='h8' color="black">
+        {daily.wind_speed.toFixed()} MPH
+        </Typography>
+        <Typography sx={{fontSize:20}}>
+          Humidity
+        </Typography>
+        <Typography variant="h8">
+         {daily.humidity}%
         </Typography>
       </CardContent>
     </Card>
