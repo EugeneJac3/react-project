@@ -12,38 +12,46 @@ const SevenDayWeather = ({weather}) => {
 
 
    
-    let dt = new Date(weather[0].dt * 1000); // time stamp
+    
+
+    function dateString(daily) {
+        let dt = new Date(daily.dt * 1000); // time stamp
+
+        return dt
+
+    }
 
     console.log("component weather", weather)
-    console.log("dt", dt)
+   
 
 return(
     <div className="weather">
       
       <Container maxWidth="md">
           <Grid container spacing={1} alignItems='center' justifyContent='center'>
-        {weather.map((daily) => (
+        {weather.map((dailyObj) => (
+            
           <>
         
         <Card style={{backgroundColor:'rgba(255,255,255,0.5)'}}sx={{minWidth: 275,m:2}}>
       <CardContent style={{}}>
         <Typography sx={{ fontSize: 20 }} color="black">
-          Temp for {dt.toDateString()}
+          Temp for {dateString(dailyObj).toDateString()}
         </Typography>
-        <Typography sx={{mb:1}}variant="h8" color='black' component="div">
-         High {daily.temp.max}°F - Low {daily.temp.min}°F
+        <Typography sx={{mb:.5}}variant="h8" color='black' component="div">
+         High {dailyObj.temp.max}°F - Low {dailyObj.temp.min}°F
         </Typography>
         <Typography sx={{ fontSize: 20}} color="black">
         Wind Speed
         </Typography>
         <Typography variant='h8' color="black">
-        {daily.wind_speed.toFixed()} MPH
+        {dailyObj.wind_speed.toFixed()} MPH
         </Typography>
         <Typography sx={{fontSize:20}}>
           Humidity
         </Typography>
         <Typography variant="h8">
-         {daily.humidity}%
+         {dailyObj.humidity}%
         </Typography>
       </CardContent>
     </Card>
